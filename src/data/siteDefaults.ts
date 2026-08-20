@@ -1,7 +1,8 @@
 export const siteDefaults = {
     title: "With Cait",
     seo: {
-        title: "Rev. Cait Ference-Saunders",
-        description: "",
+        title: "The Rev. Deacon Cait Ference-Saunders",
+        description:
+            "I’m the Rev. Cait Ference-Saunders, an Episcopal deacon, yoga facilitator, and theatermaker.",
     },
 };
