@@ -1,0 +1,31 @@
+.page-view {
+    position: relative;
+    min-height: 100dvh;
+    color: white;
+    background-color: var(--page-view--bg-color, var(--color-white));
+    overflow-x: hidden;
+
+    & .grid {
+        display: grid;
+        grid-template-columns: max(38%, 32rem) auto;
+        column-gap: 2rem;
+        min-height: 100dvh;
+    }
+
+    & .content {
+        position: relative;
+        padding-block-start: var(--site-margin-top);
+    }
+
+    &[data-id="pray"] {
+        --page-view--bg-color: var(--color-green);
+    }
+
+    &[data-id="move"] {
+        --page-view--bg-color: var(--color-blue);
+    }
+
+    &[data-id="make"] {
+        --page-view--bg-color: var(--color-maroon);
+    }
+}

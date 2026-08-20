@@ -1,0 +1,49 @@
+---
+import type { PageMeta } from "@lib/types";
+import { siteDefaults } from "@data/siteDefaults";
+
+type Props = PageMeta;
+
+const { id, meta, openGraph } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+// console.log(Astro.site);
+---
+
+<!-- General -->
+<title>{meta?.title ?? siteDefaults.seo.title}</title>
+<meta
+    content={meta?.description ?? siteDefaults.seo.description}
+    name="description"
+/>
+<!-- <link href={canonicalURL} rel="canonical" /> -->
+<meta content={Astro.generator} name="generator" />
+<meta content="index, follow" name="robots" />
+<!-- OG -->
+<!-- <meta
+    content={openGraph?.title ?? siteDefaults.meta.title}
+    property="og:title"
+/>
+<meta
+    content={openGraph?.description ?? siteDefaults.meta.description}
+    property="og:description"
+/>
+<meta content="website" property="og:type" />
+<meta
+    content={currentPath.includes("/posts/")
+        ? `${siteDefaults.domain}/og/${id}.png`
+        : `${siteDefaults.domain}/images/default-og.png`}
+    property="og:image"
+/>
+<meta
+    content={openGraph?.title ?? siteDefaults.meta.title}
+    property="og:image:alt"
+/>
+<meta content={canonicalURL} property="og:url" /> -->
+<!-- Sitemap & Feed -->
+<!-- <link href={siteDefaults.domain + "/sitemap-index.xml"} rel="sitemap" /> -->
+<!-- Favicon -->
+<!-- <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png" />
+<link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png" />
+<link href="/favicon.svg" rel="shortcut icon" /> -->

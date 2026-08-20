@@ -1,11 +1,695 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Icon from "@components/Icon.astro";
+import { Image } from "astro:assets";
+import bgTextile from "@assets/textile-bg.jpg";
+import cfsHeadshot from "@assets/cfs-headshot.jpg";
+import circlePattern from "@assets/circle-pattern.jpg";
+import cloudDrawing from "@assets/cloud-drawing.jpg";
+import collage from "@assets/collage-5.jpg";
+import flowerAccent from "@assets/flower-accent.jpg";
+import flowerAccent2 from "@assets/arrowhead-red.jpg";
+import flowerImage from "@assets/flower-drawing.jpg";
+import rugPattern from "@assets/rug-pattern.jpg";
+import { socialLinks } from "@data/socialLinks";
+import victorianFrame from "@assets/victorian-photocollage-frame2.jpg";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const homePage = await getEntry("pages", "home");
+const prayPage = await getEntry("pages", "pray");
+const movePage = await getEntry("pages", "move");
+const makePage = await getEntry("pages", "make");
+
+const { Content: HomeContent } = await render(homePage!);
+const { Content: PrayContent } = await render(prayPage!);
+const { Content: MoveContent } = await render(movePage!);
+const { Content: MakeContent } = await render(makePage!);
+
+const sections = [
+    {
+        id: "pray",
+        title: "Pray",
+        summary: prayPage?.data.summary,
+        featuredImage: flowerAccent2,
+        panelImage: rugPattern,
+        bgImage: rugPattern,
+        content: PrayContent,
+    },
+    {
+        id: "move",
+        title: "Move",
+        summary: "",
+        featuredImage: cloudDrawing,
+        panelImage: cloudDrawing,
+        bgImage: cloudDrawing,
+        content: MoveContent,
+    },
+    {
+        id: "make",
+        title: "Make",
+        summary: "",
+        featuredImage: flowerAccent,
+        panelImage: collage,
+        bgImage: circlePattern,
+        content: MakeContent,
+    },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout>
+    <main>
+        <section class="welcome">
+            <div class="content-wrapper">
+                <div class="cover">
+                    <div class="logo-header">
+                        <a href="/"><em>With</em> Cait</a>
+                    </div>
+                    <div class="text-image-grid | text-wrapper">
+                        <header class="flow">
+                            <h1 class="title">{homePage!.data.summary}</h1>
+                            <div class="summary">
+                                <HomeContent />
+                                <div class="social-links cluster">
+                                    {
+                                        socialLinks.map((link) => (
+                                            <a
+                                                href={link.href}
+                                                target={
+                                                    link.title === "Email"
+                                                        ? "_self"
+                                                        : "_blank"
+                                                }
+                                                title={link.title}
+                                            >
+                                                <Icon
+                                                    name={link.icon}
+                                                    size={28}
+                                                />
+                                            </a>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </header>
+                        <div class="image-wrapper">
+                            <Image
+                                alt="Headshot of Cait Ference-Saunders."
+                                class="headshot"
+                                format="webp"
+                                height={800}
+                                src={cfsHeadshot}
+                                width={600}
+                            />
+                            <!-- <Image
+                                alt=""
+                                class="frame"
+                                format="webp"
+                                src={victorianFrame}
+                                width={800}
+                            /> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-image">
+                <Image alt="" format="webp" src={flowerImage} width="800" />
+            </div>
+            <div class="bg-image">
+                <Image alt="" format="webp" src={bgTextile} width={1200} />
+            </div>
+        </section>
+        <div class="sections">
+            {
+                sections.map((section) => {
+                    const Content = section.content;
+
+                    return (
+                        <section
+                            class="section"
+                            data-active="false"
+                            data-open="false"
+                            id={section.id}
+                        >
+                            <a class="section-link" href={`#${section.id}`}>
+                                <header class="content-wrapper">
+                                    <h2>
+                                        {section.title}
+                                        <span class="section-link-tag">
+                                            {" "}
+                                            with Cait
+                                        </span>
+                                    </h2>
+                                </header>
+                            </a>
+                            <div class="section-content">
+                                <div class="content-wrapper">
+                                    <div class="text-image-grid">
+                                        <div class="rich-text">
+                                            {Content && <Content />}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {section.id === "pray" && (
+                                <button id="close-panels">
+                                    <span class="visually-hidden">
+                                        Close Panels
+                                    </span>
+                                    <svg
+                                        class="lucide lucide-x-icon lucide-x"
+                                        fill="none"
+                                        height="24"
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M18 6 6 18" />
+                                        <path d="m6 6 12 12" />
+                                    </svg>
+                                </button>
+                            )}
+                            {section.panelImage && (
+                                <div class="panel-image">
+                                    <Image
+                                        alt=""
+                                        format="webp"
+                                        src={section.panelImage}
+                                        width={600}
+                                    />
+                                </div>
+                            )}
+                            {section.bgImage && (
+                                <Image
+                                    alt=""
+                                    class="bg-image"
+                                    format="webp"
+                                    src={section.bgImage}
+                                    width={1200}
+                                />
+                            )}
+                        </section>
+                    );
+                })
+            }
+            <!-- <section
+                class="section"
+                data-active="false"
+                data-open="false"
+                id="pray"
+            >
+                <a class="section-link" href="#pray">
+                    <header class="content-wrapper">
+                        <h2>
+                            Pray<span class="section-link-tag"
+                                >{" "}with Cait</span
+                            >
+                        </h2>
+                    </header>
+                </a>
+                <button id="close-panels"
+                    ><span class="visually-hidden">Close Panels</span>X</button
+                >
+                <div class="section-content">
+                    <div class="content-wrapper">
+                        <PrayContent />
+                    </div>
+                </div>
+            </section>
+            <section
+                class="section"
+                data-active="false"
+                data-open="false"
+                id="move"
+            >
+                <div class="content-wrapper">
+                    <header>
+                        <h2>
+                            <a class="section-link" href="#move">Move</a>
+                            <span class="section-link-tag">{" "}with Cait</span>
+                        </h2>
+                    </header>
+                    <div class="section-content">
+                        <PrayContent />
+                    </div>
+                </div>
+            </section>
+            <section
+                class="section"
+                data-active="false"
+                data-open="false"
+                id="make"
+            >
+                <div class="content-wrapper">
+                    <header>
+                        <h2>
+                            <a class="section-link" href="#make">Make</a>
+                            <span class="section-link-tag">{" "}with Cait</span>
+                        </h2>
+                    </header>
+                    <div class="section-content">
+                        <PrayContent />
+                    </div>
+                </div>
+            </section> -->
+        </div>
+    </main>
+</BaseLayout>
+
+<style>
+    main {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .content-wrapper {
+        z-index: 2;
+    }
+
+    .logo-header {
+        margin-block-start: 1rem;
+        text-transform: lowercase;
+
+        & a {
+            text-decoration: none;
+        }
+    }
+
+    .text-image-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: var(--text-image-grid--columns, 2fr 1fr);
+        gap: var(--text-image-grid--gap, var(--space-3xl));
+        align-items: var(--text-image-grid--align, center);
+    }
+
+    .social-links {
+        --cluster-space: 1.25rem;
+        margin-block-start: var(--space-m);
+
+        & a {
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .welcome {
+        position: relative;
+        width: 100%;
+        height: 100dvh;
+        color: var(--color-ivory--light);
+        background: var(--color-teal);
+        /* background: linear-gradient(
+            to bottom right,
+            var(--color-moss),
+            color-mix(in srgb, var(--color-indigo), white 5%)
+        ); */
+        /* color-mix(in srgb, var(--color-moss), var(--color-black) 20%) */
+
+        & .title {
+            font-size: var(--step-3);
+        }
+
+        & .content-wrapper {
+            height: 100dvh;
+        }
+
+        & .summary {
+            max-width: 62ch;
+        }
+
+        & .text-image-grid {
+            top: calc(var(--section--default-height) * -1.5);
+        }
+
+        & .image-wrapper {
+            position: relative;
+            /* box-shadow: var(--shadow-large); */
+
+            & .headshot {
+                position: relative;
+                z-index: 2;
+                aspect-ratio: 3/4;
+                object-fit: cover;
+                border-radius: 1rem;
+                border-top-left-radius: 12rem;
+                border-top-right-radius: 12rem;
+                box-shadow: 0 6px 24px rgb(0 0 0 / 20%);
+                transform: scale(0.85) rotate(0deg) translate(-40%, -1rem);
+            }
+
+            & .frame {
+                position: absolute;
+                top: -5.5rem;
+                z-index: 1;
+                max-width: 22rem;
+                box-shadow: 0 6px 24px rgb(0 0 0 / 20%);
+                transform: rotate(3deg) translateX(1rem);
+            }
+        }
+
+        & .featured-image {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 30%;
+            opacity: 0.9;
+
+            & img {
+                height: 100dvh;
+                width: auto;
+                object-fit: cover;
+            }
+        }
+
+        & .bg-image {
+            position: absolute;
+            z-index: 0;
+            inset: 0;
+
+            & img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .section {
+        --link-transition: opacity 0.8s 0.4s ease;
+        position: absolute;
+        z-index: var(--section--index, 3);
+        bottom: var(--section--position, 0);
+        min-height: var(--section--default-height);
+        height: calc(
+            var(--section--default-height) * var(--section--multiplier, 0)
+        );
+        width: 100%;
+        color: var(--section--color, var(--color-ivory--light));
+        background: var(--section--bg);
+        transition: all 0.4s ease-in-out;
+
+        & header {
+            padding-block: 0.5rem;
+
+            & h2 {
+                position: relative;
+
+                &::before {
+                    content: "";
+                    position: relative;
+                    display: inline-block;
+                    bottom: 0.5rem;
+                    left: 0;
+                    height: 1px;
+                    width: var(--nav-item--rule, 0);
+                    margin-inline-end: 0.5rem;
+                    background-color: var(
+                        --section--color,
+                        var(--color-ivory--light)
+                    );
+                    transition: all 300ms;
+                }
+            }
+        }
+
+        & .section-link {
+            position: relative;
+            display: block;
+            z-index: 2;
+            width: 100%;
+            font-style: var(--section-link--style, normal);
+            text-decoration: none;
+            text-transform: lowercase;
+            transition: var(--link-transition);
+
+            &:hover {
+                --nav-item--rule: 2.5rem;
+                font-style: italic;
+            }
+        }
+
+        & .section-link-tag {
+            font-style: normal;
+            opacity: var(--section-link-tag--opacity, 0);
+            transition: var(--link-transition);
+        }
+
+        & .section-content {
+            display: none;
+            opacity: 0;
+            /* height: 0%; */
+            overflow: hidden;
+            transition:
+                display 0.1s 0.5s,
+                height 0.4s 1s,
+                opacity 0.8s 0.7s;
+            transition-behavior: allow-discrete;
+            /* height: var(--section-content--height, 0);
+            overflow-y: auto;
+            opacity: var(--section-content--opacity, 0);
+            transition: all 0.4s ease; */
+
+            /* @starting-style {
+                opacity: 0;
+                height: 0;
+            } */
+
+            & .text-image-grid {
+                margin-block-start: var(--space-2xl);
+            }
+        }
+
+        & .image-wrapper {
+            place-self: flex-end;
+
+            & img {
+                aspect-ratio: 3/4;
+                object-fit: cover;
+                max-width: 24rem;
+                border-radius: 0.5rem;
+            }
+        }
+
+        & .panel-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100%;
+            mix-blend-mode: var(--section-panel-image--blend, luminosity);
+
+            & img {
+                object-fit: cover;
+                height: 100%;
+            }
+        }
+
+        /* & .rich-text {
+        } */
+
+        /* when the panel is open, even if not active */
+        &[data-open="true"] {
+            height: var(--section--open-height);
+        }
+
+        /* when the panel is active */
+        &[data-active="true"] {
+            --nav-item--rule: 2.5rem;
+            --section-link--style: italic;
+            --section-link-tag--opacity: 1;
+            --section-panel-image--blend: normal;
+            /* --section-content--display: block;
+            --section-content--height: auto; */
+            /* --section-content--height: 100%; */
+            /* --section-content--display: block; */
+            /* --section-content--opacity: 1; */
+
+            & .section-content {
+                display: block;
+                opacity: 1;
+                /* height: 100%; */
+                overflow: auto;
+
+                @starting-style {
+                    opacity: 0;
+                    /* height: 0%; */
+                }
+            }
+        }
+
+        & button {
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 1.25rem;
+            height: 28px;
+            /* border-radius: 0.5rem; */
+            background-color: var(--close-panels--bg, white);
+            opacity: var(--close-panels--opacity, 0);
+            transition: var(--link-transition);
+
+            &:hover {
+                --close-panels--bg: color-mix(
+                    in srgb,
+                    var(--color-mauve),
+                    white 15%
+                );
+            }
+        }
+    }
+
+    .section[id="pray"] {
+        --section--multiplier: 3;
+        --section--open-height: 100%;
+        --section--bg: var(--color-mauve);
+        --section--color: var(--color-mauve--dark);
+
+        &[data-open="true"] {
+            --close-panels--opacity: 1;
+        }
+    }
+
+    .section[id="move"] {
+        --section--multiplier: 2;
+        --section--index: 4;
+        --section--open-height: calc(
+            100% -
+                calc(
+                    var(--section--default-height) *
+                        calc(var(--section--multiplier) - 1)
+                )
+        );
+        --section--color: var(--color-indigo--dark);
+        --section--bg: var(--color-turquoise);
+
+        & .bg-image {
+            opacity: 0.05;
+        }
+    }
+
+    .section[id="make"] {
+        --section--multiplier: 1;
+        --section--index: 5;
+        --section--open-height: calc(
+            100% -
+                calc(
+                    var(--section--default-height) *
+                        calc(var(--section--multiplier) + 1)
+                )
+        );
+        --section--bg: var(--color-indigo);
+    }
+
+    @media (max-width: 950px) {
+        .welcome {
+            & .image-wrapper .headshot {
+                transform: scale(0.95) translate(-30%, -1rem);
+            }
+        }
+    }
+
+    @media (max-width: 800px) {
+        .text-image-grid {
+            --text-image-grid--columns: 1fr;
+            --text-image-grid--gap: var(--space-l);
+            width: 69%;
+        }
+
+        .welcome {
+            & .image-wrapper {
+                order: -1;
+
+                & .headshot {
+                    max-height: 14rem;
+                    width: auto;
+                    transform: none;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 600px) {
+    }
+</style>
+
+<script>
+    const praySection = document.querySelector<HTMLElement>("#pray");
+    const moveSection = document.querySelector<HTMLElement>("#move");
+    const makeSection = document.querySelector<HTMLElement>("#make");
+    const sections = [praySection, moveSection, makeSection];
+    const sectionLinks = [
+        ...document.querySelectorAll<HTMLAnchorElement>(".section-link"),
+    ];
+    const closeBtn = document.querySelector<HTMLButtonElement>("#close-panels");
+
+    sectionLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            let activeSection = "";
+
+            sections.forEach((section) => {
+                if (section!.id !== link.getAttribute("href")?.slice(1)) {
+                    section!.dataset.active = "false";
+                } else {
+                    // active link
+                    section!.dataset.active = "true";
+                    section!.dataset.open = "true";
+                    activeSection = section!.id;
+
+                    // const sectionContent =
+                    //     document.querySelector<HTMLElement>(".section-content");
+                    // if (sectionContent) {
+                    //     setTimeout(() => {
+                    //         sectionContent.style.display = "block";
+                    //     }, 500);
+                    //     setTimeout(() => {
+                    //         sectionContent.style.opacity = "1";
+                    //     }, 600);
+                    //     sectionContent.style.display = "block";
+                    // }
+                }
+            });
+
+            // console.log(activeSection);
+            switch (activeSection) {
+                case "make":
+                    praySection!.dataset.open = "true";
+                    moveSection!.dataset.open = "true";
+                    break;
+                case "move":
+                    praySection!.dataset.open = "true";
+                    makeSection!.dataset.open = "false";
+                    break;
+                default:
+                    moveSection!.dataset.open = "false";
+                    makeSection!.dataset.open = "false";
+                    break;
+            }
+        });
+    });
+
+    closeBtn?.addEventListener("click", () => {
+        sections.forEach((section) => {
+            section!.dataset.open = "false";
+            section!.dataset.active = "false";
+        });
+    });
+
+    window.addEventListener("keyup", (e) => {
+        // TODO: add cycling sections with up/down arrow
+        // console.log(e.code);
+        if (e.code === "Escape") {
+            sections.forEach((section) => {
+                section!.dataset.active = "false";
+                section!.dataset.open = "false";
+            });
+        }
+    });
+</script>

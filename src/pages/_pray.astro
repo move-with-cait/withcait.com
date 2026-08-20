@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import WithNavLayout from "@layouts/WithNavLayout.astro";
+import bgImage from "@assets/iris-green.jpg";
+import { fade } from "astro:transitions";
+import { getEntry, render } from "astro:content";
+
+const page = await getEntry("pages", "pray");
+if (!page) {
+    throw new Error(`Could not find page 'pray'`);
+}
+
+const { Content } = await render(page);
+---
+
+<WithNavLayout>
+    <div class="content-wrapper rich-text">
+        <h1 class="visually-hidden">{page?.data.title}</h1>
+        <p class="summary">{page?.data.summary}</p>
+        <div class="page-content">
+            <Content />
+        </div>
+    </div>
+    <div class="image-wrapper">
+        <Image
+            alt=""
+            class="bg-image"
+            format="webp"
+            src={bgImage}
+            width={800}
+        />
+    </div>
+</WithNavLayout>

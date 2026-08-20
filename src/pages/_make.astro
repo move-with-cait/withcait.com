@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+import WithNavLayout from "@layouts/WithNavLayout.astro";
+import bgImage from "@assets/arrowhead-red.jpg";
+---
+
+<WithNavLayout>
+    <!-- <div class="image-wrapper">
+        <Image
+            alt=""
+            class="accent-image"
+            format="webp"
+            height={100}
+            src={bgImage}
+            width={800}
+        />
+    </div> -->
+    <div class="content-wrapper rich-text">
+        <h1 class="visually-hidden">Make</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
+            veniam est accusamus veritatis fugiat repellendus cum aut eveniet
+            deserunt impedit?
+        </p>
+    </div>
+    <div class="image-wrapper">
+        <Image
+            alt=""
+            class="bg-image"
+            format="webp"
+            src={bgImage}
+            width={800}
+        />
+    </div>
+</WithNavLayout>
+
+<style>
+    .accent-image {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 4rem;
+        object-fit: cover;
+    }
+</style>

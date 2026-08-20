@@ -1,0 +1,118 @@
+@keyframes popover-in {
+    from {
+        transform: scale(0.9) translateY(-12px);
+    }
+
+    to {
+        transform: scale(1) translateY(0px);
+    }
+}
+
+@keyframes popover-out {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scael(0.9);
+    }
+}
+
+.image-scale-in {
+    display: block;
+    overflow: hidden;
+
+    &:hover img {
+        transform: scale(1.06);
+        filter: brightness(0.85);
+    }
+
+    & img {
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+.modal-transition {
+    transition: all 0.25s ease-in-out;
+}
+
+.modal-backdrop-start {
+    opacity: 0;
+}
+
+.modal-backdrop-end {
+    opacity: 1;
+}
+
+.modal-panel-start {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.modal-panel-end {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.transition-opacity {
+    transition: opacity var(--transition-timing, 0.2s) ease;
+}
+
+.transition-opacity__start {
+    opacity: 0;
+}
+
+.transition-opacity__end {
+    opacity: 1;
+}
+
+.transition-panel-slide {
+    transition: transform var(--transition-timing, 0.3s) ease-in-out;
+}
+
+.transition-panel-slide__start {
+    transform: translateX(100%);
+}
+
+.transition-panel-slide__end {
+    transform: translateX(0%);
+}
+
+@keyframes navItemBump {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, -3rem);
+    }
+}
+
+.nav-item-animate-up {
+    animation: navItemBump 0.4s ease-in-out;
+}
+
+@keyframes bump {
+    0% {
+        transform: scale(1) translateX(200px);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1) translateX(0);
+    }
+}
+
+@keyframes contentAnimateIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.content-animate-in {
+    animation: contentAnimateIn 0.4s ease-in-out;
+}

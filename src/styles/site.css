@@ -1,0 +1,18 @@
+@layer reset, theme, utilities, third-party, main;
+
+/*** Reset */
+@import "base/reset.css" layer(reset);
+
+/** Theme */
+@import "base/theme.css" layer(theme);
+@import "base/layout.css" layer(theme);
+@import "base/typography.css" layer(theme);
+
+/** Utilities */
+@import "base/utilities.css" layer(utilities);
+@import "base/animations.css" layer(utilities);
+
+/** Main */
+@import "components/bg-image.css" layer(main);
+@import "components/main-nav.css" layer(main);
+@import "components/page-view.css" layer(main);

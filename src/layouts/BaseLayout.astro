@@ -1,0 +1,22 @@
+---
+import "@styles/site.css";
+import { ClientRouter } from "astro:transitions";
+import HeadAssets from "@components/document/HeadAssets.astro";
+import HeadMeta from "@components/document/HeadMeta.astro";
+import SiteHeader from "@content/navigation/SiteHeader.astro";
+---
+
+<!-- transition:animate="none" transition:name="root" -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <HeadMeta />
+        <HeadAssets />
+        <!-- <ClientRouter /> -->
+    </head>
+    <body>
+        <!-- <SiteHeader /> -->
+        <slot />
+    </body>
+</html>

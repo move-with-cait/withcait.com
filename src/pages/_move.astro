@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import WithNavLayout from "@layouts/WithNavLayout.astro";
+import bgImage from "@assets/iris-blue.jpg";
+---
+
+<WithNavLayout>
+    <div class="content-wrapper rich-text">
+        <h1 class="visually-hidden">Move</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
+            veniam est accusamus veritatis fugiat repellendus cum aut eveniet
+            deserunt impedit?
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio
+            atque aut architecto modi nemo quasi nostrum minima sapiente ea
+            autem veniam voluptas, fuga sed error. Magni aspernatur nobis
+            exercitationem dicta?
+        </p>
+    </div>
+    <div class="image-wrapper">
+        <Image
+            alt=""
+            class="bg-image"
+            format="webp"
+            src={bgImage}
+            width={800}
+        />
+    </div>
+</WithNavLayout>

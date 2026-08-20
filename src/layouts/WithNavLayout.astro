@@ -1,0 +1,92 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { TransitionAnimation } from "astro";
+import { mainNav } from "@data/navigation";
+
+const path = Astro.url.pathname.split("/").filter(Boolean)[0];
+
+const navAnimation = {
+    old: {
+        name: "navItemBump",
+        duration: "0.5s",
+        easing: "ease-in-out",
+    },
+    new: {
+        name: "navItemBump",
+        duration: "0.5s",
+        easing: "ease-in-out",
+    },
+};
+
+const transition = {
+    forwards: navAnimation,
+    backwards: navAnimation,
+};
+---
+
+<BaseLayout>
+    <div class="page-view" data-id={path}>
+        <div class="grid">
+            <header class="main-nav-wrapper" data-active="" transition:persist>
+                <div class="nav-heading">
+                    <nav aria-label="Primary" class="main-nav">
+                        {
+                            mainNav.map((item) => (
+                                <a
+                                    aria-current={
+                                        item.href.includes(path)
+                                            ? "page"
+                                            : "false"
+                                    }
+                                    class:list={[
+                                        "nav-item",
+                                        { active: item.href.includes(path) },
+                                    ]}
+                                    href={item.href}
+                                    id={`nav-${item.title.toLowerCase()}`}
+                                >
+                                    {item.title.toLowerCase()}
+                                </a>
+                            ))
+                        }
+                    </nav>
+                    <span class="tagline">with Cait</span>
+                </div>
+            </header>
+            <main class="content">
+                <slot />
+            </main>
+        </div>
+    </div>
+</BaseLayout>
+
+<script>
+    const nav = document.querySelector<HTMLElement>(".nav-heading");
+    const prayLink = document.querySelector<HTMLAnchorElement>("#nav-pray");
+    const moveLink = document.querySelector<HTMLAnchorElement>("#nav-move");
+    const makeLink = document.querySelector<HTMLAnchorElement>("#nav-make");
+    const links = [prayLink, moveLink, makeLink];
+
+    // set the active link based on the new page route, which serves
+    // as the id for the nav item
+    function setActiveLink(newActive: string) {
+        links.forEach((link) => {
+            const id = link!.id.slice(4);
+            if (newActive === id) {
+                link!.classList.add("active");
+                link!.setAttribute("aria-current", "page");
+            } else {
+                link!.classList.remove("active");
+                link!.setAttribute("aria-current", "false");
+            }
+        });
+        nav!.dataset.active = newActive;
+    }
+
+    document.addEventListener("astro:page-load", () => {
+        const href = location.href.split("/").slice(-1).toString();
+        console.log(`new page after load: ${href}`);
+
+        setActiveLink(href);
+    });
+</script>

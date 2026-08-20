@@ -1,0 +1,80 @@
+:root {
+    color-scheme: light;
+
+    /* Palette generated from old natural color chart */
+    --color-moss: rgb(79 100 69);
+    --color-sage: rgb(106 127 94);
+    --color-stem: rgb(81 106 74);
+    --color-teal: rgb(36 83 77);
+    --color-ivory: rgb(211 189 142);
+    --color-ivory--light: color-mix(in srgb, var(--color-ivory), white 70%);
+    --color-rust: rgb(165 89 53);
+    --color-rust--dark: color-mix(in srgb, var(--color-rust), black 15%);
+    --color-turquoise: rgb(99 161 158);
+    --color-blush: rgb(211 170 152);
+    --color-indigo: rgb(27 54 75);
+    --color-indigo--dark: rgb(18 50 72);
+    --color-mauve: rgb(194 155 148); /*rgb(161 126 120);*/
+    --color-mauve--dark: rgb(60 54 53);
+
+    /* Brand color palette generated from photo */
+    --color-green: rgb(96, 129, 11);
+    --color-maroon: rgb(142, 41, 41);
+    --color-blue: rgb(47, 96, 126);
+    --color-black: rgb(8, 9, 4);
+    --color-white: rgb(240, 231, 216);
+
+    /* Brand Primary & Accent */
+    --theme-primary--base: var(--color-green);
+    --theme-primary--light: color-mix(
+        in srgb,
+        var(--theme-primary--base),
+        white 90%
+    );
+    --theme-primary--text-light: var(--theme-primary--light);
+    --theme-primary--medium: color-mix(
+        in srgb,
+        var(--theme-primary--base),
+        white 30%
+    );
+    --theme-primary--dark: var(--color-dark-green);
+    --theme-secondary--base: var(--color-maroon);
+    --theme-secondary--light: color-mix(
+        in srgb,
+        var(--theme-secondary--base),
+        white 75%
+    );
+    --theme-secondary--dark: color-mix(
+        in srgb,
+        var(--theme-secondary--base),
+        black 60%
+    );
+
+    /* Neutrals */
+    --theme-white: var(--color-white);
+    --theme-white--faded: color-mix(
+        in srgb,
+        var(--theme-white),
+        transparent 7%
+    );
+    --theme-neutral--dark: var(--color-black);
+    --theme-neutral--text: var(--theme-neutral--dark);
+
+    /* Other Theme Styles */
+    --ratio-default-portrait: 3/4;
+    --ratio-default-landscape: 4/3;
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 2rem;
+    --shadow-none: 0px 0px 0px 0px rgb(0 0 0 / 0%);
+    --shadow-base: 0 3px 16px rgb(0 0 0 / 5%);
+    --shadow-large: 0 4px 32px 0 rgb(0 0 0 / 14%);
+
+    scroll-behavior: smooth;
+}
+
+/* Apply base theme styles */
+body {
+    color: var(--color-black);
+}

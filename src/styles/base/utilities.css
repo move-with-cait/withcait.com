@@ -1,0 +1,152 @@
+/* Display & Position */
+[x-cloak] {
+    display: none !important;
+}
+
+.relative {
+    position: relative;
+}
+
+.block-link {
+    display: block;
+    width: fit-content;
+}
+
+/* Typography */
+.text-step--2 {
+    font-size: var(--step--2);
+}
+
+.text-step--1 {
+    font-size: var(--step--1);
+}
+
+.text-step-0 {
+    font-size: var(--step-0);
+}
+
+.text-step-1 {
+    font-size: var(--step-1);
+}
+
+.text-step-2 {
+    font-size: var(--step-2);
+}
+
+.text-step-3 {
+    font-size: var(--step-3);
+}
+
+.text-step-4 {
+    font-size: var(--step-4);
+}
+
+.text-step-5 {
+    font-size: var(--step-5);
+}
+
+.text-step-6 {
+    font-size: var(--step-6);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Typography color */
+
+.text-white {
+    color: white;
+}
+
+.text-primary-base {
+    color: var(--theme-primary--base);
+}
+
+.text-primary-light {
+    color: var(--theme-primary--light);
+}
+
+.text-primary-dark {
+    color: var(--theme-primary--dark);
+}
+
+/* Spacing */
+.space-3xs-top {
+    margin-block-start: var(--space-3xs);
+}
+
+.space-2xs-top {
+    margin-block-start: var(--space-2xs);
+}
+
+.space-xs-top {
+    margin-block-start: var(--space-xs);
+}
+
+.space-s-top {
+    margin-block-start: var(--space-s);
+}
+
+.space-m-top {
+    margin-block-start: var(--space-m);
+}
+
+.space-l-top {
+    margin-block-start: var(--space-l);
+}
+
+.space-xl-top {
+    margin-block-start: var(--space-xl);
+}
+
+.space-2xl-top {
+    margin-block-start: var(--space-2xl);
+}
+
+.section-spacing {
+    margin-block: var(--section-spacing);
+}
+
+.section-spacing-top {
+    margin-block-start: var(--section-spacing);
+}
+
+.section-spacing-bottom {
+    margin-block-end: var(--section-spacing);
+}
+
+/* Images */
+.aspect-portait {
+    aspect-ratio: var(--ratio-default-portrait);
+    object-fit: cover;
+}
+
+.aspect-landscape {
+    aspect-ratio: var(--ratio-default-landscape);
+    object-fit: cover;
+}
+
+.rounded-img {
+    border-radius: var(--radius-sm);
+}
+
+/* Width */
+.paragraph-measure {
+    width: var(--paragraph-measure);
+}
+
+.mx-auto {
+    margin-inline: auto;
+}
+
+/* Background text contrast - set on parent element to change color of text children */
+[data-bg-theme='dark'] {
+    & .text {
+        color: var(--theme-white--faded);
+
+        & :is(h1, h2, h3) {
+            color: white;
+        }
+    }
+}
